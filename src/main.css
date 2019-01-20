@@ -1,0 +1,144 @@
+*{
+  list-style-type: none;
+  overflow-y: scroll;
+}
+
+body{
+  margin : 0;
+  padding: 0;
+  background-color: #F6412D;
+}
+
+.roomlist{
+  width: 60%;
+  height: 500px;
+  background-color: #ff9800;
+  position: absolute;
+  margin: 20px;
+}
+
+.roomlist > div{
+  text-indent: 30px;
+  padding: 5px;
+  color: #fff;
+}
+
+.roomlist  button{
+  border: none;
+  background-color: #F6412D;
+  color: #fff;  
+  outline: none;
+  cursor: pointer;
+  border-radius: 10px;
+  float: right;
+}
+
+.roomlist > table{
+  width: 100%;
+}
+
+.roomlist > table  tr  th{
+  color: #fff;
+  padding: 10px;
+  background-color: #FFC100;
+}
+
+.rooms > tr{
+  cursor: pointer;
+  text-align: center;
+}
+
+.rooms > tr > td{
+  padding : 10px;
+}
+
+.usernav{
+  position: absolute;
+  right: 0;
+  width: 300px;
+  height: 500px;
+  background-color: #ff9800;
+  margin: 20px;
+  border-radius: 20px;
+}
+
+.usernav > div{
+  color: #fff;
+  text-align: center;
+  background-color: #FFC100;
+  width: 100%;
+  padding: 10px 0px;
+  font-size: 1.25rem;
+  border-radius: 20px 20px 0px 0px;
+}
+
+.chat-list{
+  width: 60%;
+  height: 300px;
+  background-color: #ff5607;
+  position: absolute;
+  bottom: 0;
+  margin: 20px;
+  display: inline-block;
+  padding: 0;
+  left : 0;
+}
+
+.chat-list > div{
+  width: 100%;
+  height: 10%;
+  background-color: #ff9800;
+  color: #fff;
+  padding: 8px 20px;
+}
+
+.chat-form{
+  bottom: 0;
+  display: inline-block;
+  position: absolute;
+  right: 0;
+  margin: 20px;
+}
+
+.chat-form>input[type="text"]{
+  background: #ED553B;
+  border: none;
+  outline: none;  
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 8px;
+}
+
+.chat-form>input[type="button"]{
+  background-color: #ff9800;
+  color: #fff;
+  font-size: 1.25rem;
+  padding: 8px 20px;
+  border : none;
+  outline: none;
+  cursor: pointer;
+}
+
+.chat-form>input::placeholder{
+  color: #fff;  
+}
+
+::-webkit-scrollbar { 
+  display: none; 
+}
+
+
+/* #chats{
+  width: 60%;
+  height: 300px;
+  background-color: #ff5607;
+  position: absolute;
+  bottom: 0;
+  margin: 20px;
+}
+
+#chatform{
+  position: absolute;
+  right: 0;
+  bottom: 0;
+} */
