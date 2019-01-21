@@ -1,6 +1,9 @@
 import React, { Component } from 'react'
 import './main.css'
+import Rooms from './Component/rooms'
+
 import io from 'socket.io-client';
+
 
 const socket = io("http://localhost:4000");
 
@@ -11,6 +14,7 @@ class main extends Component{
     nickname : null,
     chatContent : null,
     roomName : null,
+    room_id : null,
     chatlist : [],
     userlist : [],
     rooms : []
@@ -75,6 +79,10 @@ class main extends Component{
         rooms : rooms
       });
     });
+    
+    socket.on('joinRoomSuccess', (room_id) =>{
+      this.props.history.push(`/waiting?id=${room_id}`);
+    })
 
   }
 
@@ -97,6 +105,7 @@ class main extends Component{
 
     return(
       <div className="main">
+        {/* <Rooms my_id={this.state.my_id}></Rooms> */}
         <div className="roomlist">
           <div>
             <span>방 목록</span>
