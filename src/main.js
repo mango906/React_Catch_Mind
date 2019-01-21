@@ -10,8 +10,10 @@ class main extends Component{
     my_id : null,
     nickname : null,
     chatContent : null,
+    roomName : null,
     chatlist : [],
-    userlist : []
+    userlist : [],
+    rooms : []
   }
 
   componentWillMount(){
@@ -19,6 +21,32 @@ class main extends Component{
     this.setState({
       nickname : name
     });
+  }
+
+  handleChange = (e) =>{
+    this.setState({
+      chatContent : e.target.value
+    });
+  }
+
+  submitChatEvent = () =>{
+    if(this.state.chatContent != null){
+      let chatObject = {
+        id : this.state.my_id,
+        content : this.state.chatContent
+      };
+      socket.emit("main_chat", chatObject);
+    }
+  }
+
+  joinRoomEvent = (i) =>{
+    let room_id = this.state.rooms[i].room_id;
+    socket.emit('joinRoom', room_id);
+  }
+
+  createRoomEvent = () =>{
+    let room_name = prompt('방 이름을 입력해주세요.');
+    socket.emit('createRoom', room_name, this.state.my_id);
   }
 
   componentDidMount(){
@@ -41,25 +69,25 @@ class main extends Component{
         chatlist : [...this.state.chatlist, chatObject]
       })
     });
-  }
 
-  handleChange = (e) =>{
-    this.setState({
-      chatContent : e.target.value
+    socket.on('roomlist', (rooms) =>{
+      this.setState({
+        rooms : rooms
+      });
     });
-  }
 
-  submitChatEvent = () =>{
-    if(this.state.chatContent != null){
-      let chatObject = {
-        id : this.state.my_id,
-        content : this.state.chatContent
-      };
-      socket.emit("main_chat", chatObject);
-    }
   }
 
   render(){
+    const roomlist = this.state.rooms.map((room, i) =>(
+      <tr key={i} onClick={() =>{this.joinRoomEvent(i)}}>
+        <td>{room.room_id}</td>
+        <td>{room.room_name}</td>
+        <td>{room.room_master}</td>
+        <td>{room.detail.length}</td>
+      </tr>
+    ))
+
     const userlist = this.state.userlist.map((user, i) =>(
       <li key={i}>{user.name}</li>
     ));
@@ -72,7 +100,7 @@ class main extends Component{
         <div className="roomlist">
           <div>
             <span>방 목록</span>
-            <button className="createRoomBtn">방 만들기</button>
+            <button className="createRoomBtn" onClick={this.createRoomEvent}>방 만들기</button>
           </div>
           <table >
             <thead>
@@ -82,6 +110,7 @@ class main extends Component{
                 <th>방장</th>
                 <th>인원</th>
               </tr>
+              {roomlist}
             </thead>
             <tbody className="rooms">
 
