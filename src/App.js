@@ -8,11 +8,6 @@ const socket = io("http://localhost:4000");
 
 class App extends Component {
 
-  componentDidMount(){
-    console.log(socket);
-    socket.emit("hi");
-  }
-
   render() {
     return (
       <div className="App">
