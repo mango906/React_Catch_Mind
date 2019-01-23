@@ -3,8 +3,6 @@ import './main.css'
 import Rooms from './Component/rooms'
 
 import io from 'socket.io-client';
-
-
 const socket = io("http://localhost:4000");
 
 class main extends Component{
@@ -18,13 +16,6 @@ class main extends Component{
     chatlist : [],
     userlist : [],
     rooms : []
-  }
-
-  componentWillMount(){
-    let name = prompt('이름을 입력해주세요.');
-    this.setState({
-      nickname : name
-    });
   }
 
   handleChange = (e) =>{
@@ -54,7 +45,13 @@ class main extends Component{
   }
 
   componentDidMount(){
-    socket.emit('join', this.state.nickname);
+
+    let name = prompt('이름을 입력해주세요.');
+    this.setState({
+      nickname : name
+    });
+
+    socket.emit('join', name);
 
     socket.on('getId', (id) =>{
       this.setState({

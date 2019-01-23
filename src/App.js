@@ -5,8 +5,6 @@ import './App.css';
 import Main from './main'
 import Waiting from './waiting'
 
-import io from 'socket.io-client';
-const socket = io("http://localhost:4000");
 
 class App extends Component {
 
