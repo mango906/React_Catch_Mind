@@ -1,15 +1,15 @@
-*{
+* {
   list-style-type: none;
   overflow-y: scroll;
 }
 
-body{
-  margin : 0;
+body {
+  margin: 0;
   padding: 0;
-  background-color: #F6412D;
+  background-color: #f6412d;
 }
 
-.roomlist{
+.roomlist {
   width: 60%;
   height: 500px;
   background-color: #ff9800;
@@ -17,42 +17,42 @@ body{
   margin: 20px;
 }
 
-.roomlist > div{
+.roomlist > div {
   text-indent: 30px;
   padding: 5px;
   color: #fff;
 }
 
-.roomlist  button{
+.roomlist button {
   border: none;
-  background-color: #F6412D;
-  color: #fff;  
+  background-color: #f6412d;
+  color: #fff;
   outline: none;
   cursor: pointer;
   border-radius: 10px;
   float: right;
 }
 
-.roomlist > table{
+.roomlist > table {
   width: 100%;
 }
 
-.roomlist > table  tr  th{
+.roomlist > table tr th {
   color: #fff;
   padding: 10px;
-  background-color: #FFC100;
+  background-color: #ffc100;
 }
 
-.rooms > tr{
+.rooms > tr {
   cursor: pointer;
   text-align: center;
 }
 
-.rooms > tr > td{
-  padding : 10px;
+.rooms > tr > td {
+  padding: 10px;
 }
 
-.usernav{
+.usernav {
   position: absolute;
   right: 0;
   width: 300px;
@@ -62,17 +62,17 @@ body{
   border-radius: 20px;
 }
 
-.usernav > div{
+.usernav > div {
   color: #fff;
   text-align: center;
-  background-color: #FFC100;
+  background-color: #ffc100;
   width: 100%;
   padding: 10px 0px;
   font-size: 1.25rem;
   border-radius: 20px 20px 0px 0px;
 }
 
-.chat-list{
+.chat-list {
   width: 60%;
   height: 300px;
   background-color: #ff5607;
@@ -81,10 +81,10 @@ body{
   margin: 20px;
   display: inline-block;
   padding: 0;
-  left : 0;
+  left: 0;
 }
 
-.chat-list > div{
+.chat-list > div {
   width: 100%;
   height: 10%;
   background-color: #ff9800;
@@ -92,7 +92,7 @@ body{
   padding: 8px 20px;
 }
 
-.chat-form{
+.chat-form {
   bottom: 0;
   display: inline-block;
   position: absolute;
@@ -100,33 +100,32 @@ body{
   margin: 20px;
 }
 
-.chat-form>input[type="text"]{
-  background: #ED553B;
+.chat-form > input[type="text"] {
+  background: #ed553b;
   border: none;
-  outline: none;  
+  outline: none;
   color: #fff;
   font-size: 1.25rem;
   padding: 8px;
 }
 
-.chat-form>input[type="button"]{
+.chat-form > input[type="button"] {
   background-color: #ff9800;
   color: #fff;
   font-size: 1.25rem;
   padding: 8px 20px;
-  border : none;
+  border: none;
   outline: none;
   cursor: pointer;
 }
 
-.chat-form>input::placeholder{
-  color: #fff;  
+.chat-form > input::placeholder {
+  color: #fff;
 }
 
-::-webkit-scrollbar { 
-  display: none; 
+::-webkit-scrollbar {
+  display: none;
 }
-
 
 /* #chats{
   width: 60%;

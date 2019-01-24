@@ -1,0 +1,77 @@
+.room-member {
+  width: 60%;
+}
+
+.room-member > li {
+  position: relative;
+  display: inline-block;
+  width: 40%;
+  height: 350px;
+  margin: 20px;
+  background-color: #ff9800;
+}
+
+.room-member > li > div {
+  width: 100%;
+  height: 50px;
+  background-color: #ff5607;
+}
+
+.room-member > li > img {
+  position: absolute;
+  left: 0;
+}
+
+.room-member > li > span {
+  width: 50%;
+  position: absolute;
+  right: 0;
+  top: 30%;
+  font-size: 1.25rem;
+}
+
+.chat {
+  position: absolute;
+  left: 7%;
+  background-color: #f6412d;
+  font-size: 1.25rem;
+  width: 40%;
+  border-radius: 30px;
+  padding: 10px 20px;
+  outline: none;
+}
+
+.submitBtn {
+  background-color: #ff2400;
+  border: none;
+  color: #fff;
+  padding: 20px 50px;
+  outline: none;
+  cursor: pointer;
+  font-size: 1.25rem;
+  margin-left: 150px;
+}
+
+.chat-area {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 35%;
+  height: 750px;
+  margin: 35px;
+  background: #f29507;
+}
+
+.startBtn {
+  position: absolute;
+  right: 0;
+  margin-right: 35px;
+  width: 35%;
+  border: none;
+  color: #fff;
+  padding: 30px;
+  font-size: 1.2rem;
+  background: #e00201;
+  cursor: pointer;
+  outline: none;
+}
