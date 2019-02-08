@@ -9,7 +9,8 @@ class waiting extends Component {
     members: [],
     room_master: false,
     chatContent: null,
-    room_id: null
+    room_id: null,
+    chatList: []
   };
 
   updateInputEvent = e => {
@@ -20,7 +21,15 @@ class waiting extends Component {
 
   submitChatEvent = () => {
     const { socket } = this.props;
-    console.log(this.state.chatContent);
+    if (this.state.chatContent != null) {
+      let chat = {
+        id: this.state.my_id,
+        content: this.state.chatContent
+      };
+      console.log(chat);
+      socket.emit("waiting_chat", chat);
+    }
+    this.chatInput.value = "";
   };
 
   componentDidMount() {
@@ -28,9 +37,19 @@ class waiting extends Component {
 
     let url = window.location.href;
     let room_id = url.substring(url.indexOf("=") + 1, url.length);
+
     this.setState({
       room_id: room_id
     });
+
+    socket.emit("getId");
+
+    socket.on("getId", id => {
+      this.setState({
+        my_id: id
+      });
+    });
+
     socket.emit("getRoomInfo", room_id);
 
     socket.on("getRoomInfo", (room_info, clients) => {
@@ -55,6 +74,12 @@ class waiting extends Component {
         });
       });
     });
+
+    socket.on("waiting_chat", chatData => {
+      this.setState({
+        chatList: [...this.state.chatList, chatData]
+      });
+    });
   }
 
   render() {
@@ -65,6 +90,12 @@ class waiting extends Component {
         <span>{member}</span>
       </li>
     ));
+    const chats = this.state.chatList.map((chat, i) => (
+      <li key={i}>
+        {chat.name} : {chat.content}
+      </li>
+    ));
+
     let startBtn;
     if (this.state.room_master) {
       startBtn = <button className="startBtn">GAME START</button>;
@@ -92,11 +123,17 @@ class waiting extends Component {
             <img src={character} alt={"character"} />
           </li> */}
         </ul>
-        <input className="chat" onChange={this.updateInputEvent} />
+        <input
+          className="chat"
+          onChange={this.updateInputEvent}
+          ref={ref => {
+            this.chatInput = ref;
+          }}
+        />
         <button className="submitBtn" onClick={this.submitChatEvent}>
           전송
         </button>
-        <div className="chat-area" />
+        <ul className="chat-area">{chats}</ul>
         {startBtn}
       </div>
     );

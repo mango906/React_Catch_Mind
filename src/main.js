@@ -23,6 +23,13 @@ class main extends Component {
     });
   };
 
+  handleKeyPress = e => {
+    if (e.key == "Enter") {
+      console.log("chatttt");
+      this.submitChatEvent();
+    }
+  };
+
   submitChatEvent = () => {
     const { socket } = this.props;
     if (this.state.chatContent != null) {
@@ -31,6 +38,7 @@ class main extends Component {
         content: this.state.chatContent
       };
       socket.emit("main_chat", chatObject);
+      this.chatInput.value = "";
     }
   };
 
@@ -137,7 +145,16 @@ class main extends Component {
           {chatlist}
         </ul>
         <div className="chat-form">
-          <input type="text" name="chatContent" onChange={this.handleChange} placeholder="채팅" />
+          <input
+            type="text"
+            name="chatContent"
+            onKeyPress={this.handleKeyPress}
+            onChange={this.handleChange}
+            placeholder="채팅"
+            ref={ref => {
+              this.chatInput = ref;
+            }}
+          />
           <input type="button" name="chatBtn" value="전송" onClick={this.submitChatEvent} />
         </div>
       </div>
