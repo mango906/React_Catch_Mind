@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import "./App.css";
 import Main from "./main";
 import Waiting from "./waiting";
+import Drawing from "./drawing";
 
 import io from "socket.io-client";
 const socket = io("http://localhost:4000");
@@ -16,6 +17,7 @@ class App extends Component {
           <div>
             <Route exact path="/" component={props => <Main {...props} socket={socket} />} />
             <Route path="/waiting" component={props => <Waiting {...props} socket={socket} />} />
+            <Route path="/drawing" component={props => <Drawing {...props} socket={socket} />} />
           </div>
         </Router>
       </div>

@@ -32,6 +32,12 @@ class waiting extends Component {
     this.chatInput.value = "";
   };
 
+  startEvent = () => {
+    console.log("startEvent");
+    const { socket } = this.props;
+    socket.emit("game_start", this.state.room_id);
+  };
+
   componentDidMount() {
     const { socket } = this.props;
 
@@ -98,7 +104,11 @@ class waiting extends Component {
 
     let startBtn;
     if (this.state.room_master) {
-      startBtn = <button className="startBtn">GAME START</button>;
+      startBtn = (
+        <button className="startBtn" onClick={this.startEvent}>
+          GAME START
+        </button>
+      );
     }
 
     return (
