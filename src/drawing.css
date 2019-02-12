@@ -1,0 +1,89 @@
+.tools {
+  background-color: #ff9800;
+  width: 350px;
+  border-radius: 10px;
+  padding: 10px;
+}
+
+.redBtn {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: red;
+  cursor: pointer;
+}
+
+.yellowBtn {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: yellow;
+  cursor: pointer;
+}
+
+.greenBtn {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: green;
+  cursor: pointer;
+}
+
+.blueBtn {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: blue;
+  cursor: pointer;
+}
+
+.blackBtn {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #fff;
+  outline: none;
+  background-color: black;
+  cursor: pointer;
+}
+
+.slider {
+  position: relative;
+  top: 50%;
+  transform: translateY(-50%);
+  -webkit-appearance: none;
+  width: 58%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+}
+
+/* .slider:hover {
+  opacity: 1;
+} */
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #f6412d;
+  cursor: pointer;
+}
+
+.eraserBtn {
+  cursor: pointer;
+  margin-left: 10px;
+  width: 60px;
+  height: 60px;
+}
+
+.removeBtn {
+  cursor: pointer;
+  margin-left: 10px;
+  width: 60px;
+  height: 60px;
+}

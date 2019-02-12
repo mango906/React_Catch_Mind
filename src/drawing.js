@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import "./drawing.css";
 class Drawing extends Component {
   state = {
     drawable: false
@@ -57,6 +58,10 @@ class Drawing extends Component {
     return { X: x, Y: y };
   };
 
+  colorChangeEvent = e => {
+    console.log(e.target.style.backgroundColor);
+  };
+
   componentDidMount() {
     const { socket } = this.props;
     const canvas = this.canvas;
@@ -98,6 +103,20 @@ class Drawing extends Component {
             this.canvas = ref;
           }}
         />
+        <div className="tools">
+          <div>
+            <button className="redBtn" onClick={this.colorChangeEvent} />
+            <button className="yellowBtn" onClick={this.colorChangeEvent} />
+            <button className="greenBtn" onClick={this.colorChangeEvent} />
+            <button className="blueBtn" onClick={this.colorChangeEvent} />
+            <button className="blackBtn" onClick={this.colorChangeEvent} />
+          </div>
+          <div>
+            <input type="range" className="slider" />
+            <img className="eraserBtn" src={require("./image/eraser.png")} />
+            <img className="removeBtn" src={require("./image/trash.png")} />
+          </div>
+        </div>
       </div>
     );
   }
