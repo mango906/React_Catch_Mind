@@ -5,7 +5,7 @@
   padding: 10px;
 }
 
-.redBtn {
+.red {
   width: 60px;
   height: 60px;
   border: 1px solid #fff;
@@ -14,7 +14,7 @@
   cursor: pointer;
 }
 
-.yellowBtn {
+.yellow {
   width: 60px;
   height: 60px;
   border: 1px solid #fff;
@@ -23,7 +23,7 @@
   cursor: pointer;
 }
 
-.greenBtn {
+.green {
   width: 60px;
   height: 60px;
   border: 1px solid #fff;
@@ -32,7 +32,7 @@
   cursor: pointer;
 }
 
-.blueBtn {
+.blue {
   width: 60px;
   height: 60px;
   border: 1px solid #fff;
@@ -41,7 +41,7 @@
   cursor: pointer;
 }
 
-.blackBtn {
+.black {
   width: 60px;
   height: 60px;
   border: 1px solid #fff;

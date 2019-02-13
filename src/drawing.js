@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./drawing.css";
 class Drawing extends Component {
   state = {
+    ctx: null,
     drawable: false
   };
 
@@ -59,7 +60,9 @@ class Drawing extends Component {
   };
 
   colorChangeEvent = e => {
-    console.log(e.target.style.backgroundColor);
+    const { socket } = this.props;
+    let color = e.target.className;
+    socket.emit("setColor", color);
   };
 
   componentDidMount() {
@@ -68,6 +71,10 @@ class Drawing extends Component {
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    this.setState({
+      ctx: ctx
+    });
 
     socket.on("initDraw", location => {
       ctx.beginPath();
@@ -81,17 +88,17 @@ class Drawing extends Component {
     socket.on("finishDraw", () => {
       this.finishDraw();
     });
+
+    socket.on("setColor", color => {
+      ctx.strokeStyle = color;
+    });
   }
 
   render() {
-    const floatLeft = {
-      float: "left"
-    };
-
     return (
       <div className="Drawing">
         <canvas
-          style={floatLeft}
+          style={{ float: "left" }}
           className="canvas"
           width={1536}
           height={730}
@@ -105,11 +112,17 @@ class Drawing extends Component {
         />
         <div className="tools">
           <div>
-            <button className="redBtn" onClick={this.colorChangeEvent} />
-            <button className="yellowBtn" onClick={this.colorChangeEvent} />
-            <button className="greenBtn" onClick={this.colorChangeEvent} />
-            <button className="blueBtn" onClick={this.colorChangeEvent} />
-            <button className="blackBtn" onClick={this.colorChangeEvent} />
+            <button className="red" onClick={this.colorChangeEvent.bind(this)} />
+            <button
+              className="yellow"
+              onClick={this.colorChangeEvent}
+              ref={ref => {
+                this.btn = ref;
+              }}
+            />
+            <button className="green" onClick={this.colorChangeEvent} />
+            <button className="blue" onClick={this.colorChangeEvent} />
+            <button className="black" onClick={this.colorChangeEvent} />
           </div>
           <div>
             <input type="range" className="slider" />
