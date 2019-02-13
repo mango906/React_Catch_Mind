@@ -3,7 +3,8 @@ import "./drawing.css";
 class Drawing extends Component {
   state = {
     ctx: null,
-    drawable: false
+    drawable: false,
+    lineWidth: 0
   };
 
   initDrawEvent(e) {
@@ -65,6 +66,24 @@ class Drawing extends Component {
     socket.emit("setColor", color);
   };
 
+  handleChange = e => {
+    const { socket } = this.props;
+    socket.emit("selectWidth", e.target.value);
+    this.setState({
+      lineWidth: e.target.value
+    });
+  };
+
+  setEraserEvent = () => {
+    const { socket } = this.props;
+    socket.emit("setEraser");
+  };
+
+  clearEvent = () => {
+    const { socket } = this.props;
+    socket.emit("canvasClear");
+  };
+
   componentDidMount() {
     const { socket } = this.props;
     const canvas = this.canvas;
@@ -91,6 +110,24 @@ class Drawing extends Component {
 
     socket.on("setColor", color => {
       ctx.strokeStyle = color;
+    });
+
+    socket.on("selectWidth", width => {
+      this.setState({
+        lineWidth: width
+      });
+      this.canvas.getContext("2d").lineWidth = width;
+      console.log(width);
+    });
+
+    socket.on("setEraser", () => {
+      this.canvas.getContext("2d").strokeStyle = "#fff";
+    });
+
+    socket.on("canvasClear", () => {
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
     });
   }
 
@@ -124,10 +161,25 @@ class Drawing extends Component {
             <button className="blue" onClick={this.colorChangeEvent} />
             <button className="black" onClick={this.colorChangeEvent} />
           </div>
-          <div>
-            <input type="range" className="slider" />
-            <img className="eraserBtn" src={require("./image/eraser.png")} />
-            <img className="removeBtn" src={require("./image/trash.png")} />
+          <div style={{ marginTop: "15px" }}>
+            <input
+              type="range"
+              className="slider"
+              min="1"
+              max="20"
+              value={this.state.lineWidth}
+              onChange={this.handleChange}
+            />
+            <img
+              className="eraserBtn"
+              onClick={this.setEraserEvent}
+              src={require("./image/eraser.png")}
+            />
+            <img
+              className="clearBtn"
+              src={require("./image/trash.png")}
+              onClick={this.clearEvent}
+            />
           </div>
         </div>
       </div>

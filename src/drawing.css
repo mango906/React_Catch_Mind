@@ -6,8 +6,8 @@
 }
 
 .red {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 1px solid #fff;
   outline: none;
   background-color: red;
@@ -15,8 +15,8 @@
 }
 
 .yellow {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 1px solid #fff;
   outline: none;
   background-color: yellow;
@@ -24,8 +24,8 @@
 }
 
 .green {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 1px solid #fff;
   outline: none;
   background-color: green;
@@ -33,8 +33,8 @@
 }
 
 .blue {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 1px solid #fff;
   outline: none;
   background-color: blue;
@@ -42,8 +42,8 @@
 }
 
 .black {
-  width: 60px;
-  height: 60px;
+  width: 70px;
+  height: 70px;
   border: 1px solid #fff;
   outline: none;
   background-color: black;
@@ -81,7 +81,7 @@
   height: 60px;
 }
 
-.removeBtn {
+.clearBtn {
   cursor: pointer;
   margin-left: 10px;
   width: 60px;
