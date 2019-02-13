@@ -86,6 +86,10 @@ class waiting extends Component {
         chatList: [...this.state.chatList, chatData]
       });
     });
+
+    socket.on("game_start", () => {
+      this.props.history.push("/drawing");
+    });
   }
 
   render() {

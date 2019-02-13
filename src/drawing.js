@@ -2,10 +2,15 @@ import React, { Component } from "react";
 import "./drawing.css";
 class Drawing extends Component {
   state = {
+    my_id: null,
     ctx: null,
     drawable: false,
-    lineWidth: 0
+    lineWidth: 0,
+    chatContent: null,
+    chats: []
   };
+
+  //Drawing
 
   initDrawEvent(e) {
     const { socket } = this.props;
@@ -60,6 +65,8 @@ class Drawing extends Component {
     return { X: x, Y: y };
   };
 
+  //Drawing tool
+
   colorChangeEvent = e => {
     const { socket } = this.props;
     let color = e.target.className;
@@ -84,6 +91,24 @@ class Drawing extends Component {
     socket.emit("canvasClear");
   };
 
+  //Chatting
+
+  onChangeChat = e => {
+    this.setState({
+      chatContent: e.target.value
+    });
+  };
+
+  submitChatEvent = () => {
+    const { socket } = this.props;
+    let chatObject = {
+      id: this.state.my_id,
+      value: this.state.chatContent
+    };
+    this.state.chatContent = "";
+    socket.emit("chat", chatObject);
+  };
+
   componentDidMount() {
     const { socket } = this.props;
     const canvas = this.canvas;
@@ -93,6 +118,14 @@ class Drawing extends Component {
 
     this.setState({
       ctx: ctx
+    });
+
+    socket.emit("getId");
+
+    socket.on("getId", id => {
+      this.setState({
+        my_id: id
+      });
     });
 
     socket.on("initDraw", location => {
@@ -117,7 +150,6 @@ class Drawing extends Component {
         lineWidth: width
       });
       this.canvas.getContext("2d").lineWidth = width;
-      console.log(width);
     });
 
     socket.on("setEraser", () => {
@@ -129,9 +161,24 @@ class Drawing extends Component {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
       ctx.beginPath();
     });
+
+    socket.on("chat", chatObject => {
+      console.log(chatObject);
+      this.setState({
+        chats: [...this.state.chats, chatObject]
+      });
+      console.log(this.state.chats);
+    });
   }
 
   render() {
+    const chats = this.state.chats.map((chat, i) => {
+      return (
+        <li key={i}>
+          {chat.name} : {chat.value}
+        </li>
+      );
+    });
     return (
       <div className="Drawing">
         <canvas
@@ -147,6 +194,19 @@ class Drawing extends Component {
             this.canvas = ref;
           }}
         />
+        <div className="chats">
+          <div className="chatContent">{chats}</div>
+          <div className="chatInput">
+            <input
+              className="chatForm"
+              onChange={this.onChangeChat}
+              value={this.state.chatContent}
+            />
+            <button className="chatSubmitBtn" onClick={this.submitChatEvent}>
+              전송
+            </button>
+          </div>
+        </div>
         <div className="tools">
           <div>
             <button className="red" onClick={this.colorChangeEvent.bind(this)} />
