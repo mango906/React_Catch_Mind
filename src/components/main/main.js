@@ -1,11 +1,15 @@
 import React, { Component } from "react";
 import "./../../css/main.css";
+import { setRoomID } from "./../../index";
 // import Rooms from "./Component/rooms"
 
 // import io from 'socket.io-client';
 // const socket = io("http://localhost:4000");
 
 class main extends Component {
+  constructor(props) {
+    super(props);
+  }
   state = {
     my_id: null,
     nickname: null,
@@ -98,6 +102,8 @@ class main extends Component {
     });
 
     socket.on("joinRoomSuccess", room_id => {
+      this.props.store.dispatch(setRoomID(room_id));
+      // this.props.store.dispatch(setRoomID(1));
       this.props.history.push(`/waiting?id=${room_id}`);
     });
   }
@@ -160,6 +166,7 @@ class main extends Component {
             name="chatContent"
             onKeyPress={this.handleKeyPress}
             onChange={this.handleChange}
+            value={this.chatContent}
             placeholder="채팅"
             ref={ref => {
               this.chatInput = ref;

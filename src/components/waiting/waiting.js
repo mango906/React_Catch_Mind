@@ -115,28 +115,11 @@ class waiting extends Component {
       );
     }
 
+    console.log(this.props.store.getState().room_id);
+
     return (
       <div>
-        <ul className="room-member">
-          {members}
-          {/* <li>
-            <div>방장</div>
-            <img src={character} alt={"character"} />
-            <span>유저</span>
-          </li>
-          <li>
-            <div />
-            <img src={character} alt={"character"} />
-          </li>
-          <li>
-            <div />
-            <img src={character} alt={"character"} />
-          </li>
-          <li>
-            <div />
-            <img src={character} alt={"character"} />
-          </li> */}
-        </ul>
+        <ul className="room-member">{members}</ul>
         <input
           className="chat"
           onChange={this.updateInputEvent}
@@ -148,6 +131,7 @@ class waiting extends Component {
           전송
         </button>
         <ul className="chat-area">{chats}</ul>
+
         {startBtn}
       </div>
     );
