@@ -1,10 +1,9 @@
 import React, { Component } from "react";
 import logo from "./logo.svg";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
-import "./App.css";
-import Main from "./main";
-import Waiting from "./waiting";
-import Drawing from "./drawing";
+import Main from "./components/main/main";
+import Waiting from "./components/waiting/waiting";
+import Drawing from "./components/drawing/drawing";
 
 import io from "socket.io-client";
 const socket = io("http://localhost:4000");
