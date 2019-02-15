@@ -51,12 +51,22 @@ class main extends Component {
   createRoomEvent = () => {
     const { socket } = this.props;
     let room_name = prompt("방 이름을 입력해주세요.");
+    if (room_name == null) {
+      return;
+    }
+    if (room_name.trim() == "") {
+      alert("방 이름을 제대로 입력해주세요.");
+      return;
+    }
     socket.emit("createRoom", room_name, this.state.my_id);
   };
 
   componentDidMount() {
     const { socket } = this.props;
-    let name = prompt("이름을 입력해주세요.");
+    let name = null;
+    while (name == null) {
+      name = prompt("이름을 입력해주세요.");
+    }
     this.setState({
       nickname: name
     });
