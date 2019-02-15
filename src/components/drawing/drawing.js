@@ -7,7 +7,8 @@ class Drawing extends Component {
     drawable: false,
     lineWidth: 0,
     chatContent: null,
-    chats: []
+    chats: [],
+    clients: []
   };
 
   //Drawing
@@ -115,6 +116,14 @@ class Drawing extends Component {
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    socket.emit("getRoomInfo", this.props.store.getState().room_id);
+
+    socket.on("getRoomInfo", (room_info, clients) => {
+      this.setState({
+        clients: clients
+      });
+    });
 
     this.setState({
       ctx: ctx

@@ -59,7 +59,6 @@ class waiting extends Component {
     socket.emit("getRoomInfo", room_id);
 
     socket.on("getRoomInfo", (room_info, clients) => {
-      console.log("getRoomInfo");
       this.setState({
         members: []
       });
@@ -114,8 +113,6 @@ class waiting extends Component {
         </button>
       );
     }
-
-    console.log(this.props.store.getState().room_id);
 
     return (
       <div>
