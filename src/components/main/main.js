@@ -10,17 +10,18 @@ import { setRoomID } from "./../../index";
 class main extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      my_id: null,
+      nickname: null,
+      chatContent: null,
+      roomName: null,
+      room_id: null,
+      chatlist: [],
+      userlist: [],
+      rooms: []
+    };
   }
-  state = {
-    my_id: null,
-    nickname: null,
-    chatContent: null,
-    roomName: null,
-    room_id: null,
-    chatlist: [],
-    userlist: [],
-    rooms: []
-  };
 
   handleChange = e => {
     this.setState({
@@ -105,7 +106,7 @@ class main extends Component {
     socket.on("joinRoomSuccess", room_id => {
       this.props.store.dispatch(setRoomID(room_id));
       // this.props.store.dispatch(setRoomID(1));
-      this.props.history.push(`/waiting?id=${room_id}`);
+      this.props.history.push(`/waiting`);
     });
   }
 

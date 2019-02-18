@@ -3,15 +3,19 @@ import "./../../css/waiting.css";
 import character from "./../../image/character.png";
 
 class waiting extends Component {
-  state = {
-    my_id: null,
-    roomInfo: [],
-    members: [],
-    room_master: false,
-    chatContent: null,
-    room_id: null,
-    chatList: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      my_id: null,
+      roomInfo: [],
+      members: [],
+      room_master: false,
+      chatContent: null,
+      room_id: null,
+      chatList: []
+    };
+  }
 
   updateInputEvent = e => {
     this.setState({
@@ -33,7 +37,6 @@ class waiting extends Component {
   };
 
   startEvent = () => {
-    console.log("startEvent");
     const { socket } = this.props;
     socket.emit("game_start", this.state.room_id);
   };
@@ -41,8 +44,7 @@ class waiting extends Component {
   componentDidMount() {
     const { socket } = this.props;
 
-    let url = window.location.href;
-    let room_id = url.substring(url.indexOf("=") + 1, url.length);
+    let room_id = this.props.store.getState().room_id;
 
     this.setState({
       room_id: room_id
@@ -56,27 +58,35 @@ class waiting extends Component {
       });
     });
 
+    console.log(room_id);
+
     socket.emit("getRoomInfo", room_id);
 
-    socket.on("getRoomInfo", (room_info, clients) => {
+    socket.on("getRoomInfo", clients => {
       this.setState({
         members: []
       });
 
       clients.forEach(client => {
-        Object.keys(Object.values(room_info)[0]).forEach(info => {
-          if (client.id === info) {
-            this.setState({
-              members: [...this.state.members, client.name]
-            });
-          }
+        this.setState({
+          members: [...this.state.members, client.name]
         });
       });
 
-      socket.on("room_master", msg => {
-        this.setState({
-          room_master: true
-        });
+      // clients.forEach(client => {
+      //   Object.keys(Object.values(room_info)[0]).forEach(info => {
+      //     if (client.id === info) {
+      //       this.setState({
+      //         members: [...this.state.members, client.name]
+      //       });
+      //     }
+      //   });
+      // });
+    });
+
+    socket.on("room_master", msg => {
+      this.setState({
+        room_master: true
       });
     });
 

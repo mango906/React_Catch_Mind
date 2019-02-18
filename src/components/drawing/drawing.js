@@ -1,15 +1,94 @@
 import React, { Component } from "react";
 import "./../../css/drawing.css";
 class Drawing extends Component {
-  state = {
-    my_id: null,
-    ctx: null,
-    drawable: false,
-    lineWidth: 0,
-    chatContent: null,
-    chats: [],
-    clients: []
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      my_id: null,
+      ctx: null,
+      drawable: false,
+      lineWidth: 0,
+      chatContent: null,
+      chats: [],
+      members: []
+    };
+  }
+
+  componentWillMount() {
+    // const { socket } = this.props;
+  }
+
+  componentDidMount() {
+    const { socket } = this.props;
+    const canvas = this.canvas;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // this.setState({
+    //   ctx: ctx
+    // });
+
+    socket.emit("getId");
+
+    socket.on("getId", id => {
+      this.setState({
+        my_id: id
+      });
+    });
+
+    socket.emit("getRoomInfo", this.props.store.getState().room_id);
+
+    socket.on("getRoomInfo", clients => {
+      console.log("getRoomInfo");
+      this.setState({
+        members: clients
+      });
+    });
+
+    socket.on("initDraw", location => {
+      ctx.beginPath();
+      this.initDraw(location);
+    });
+
+    socket.on("Draw", location => {
+      this.draw(location);
+    });
+
+    socket.on("finishDraw", () => {
+      this.finishDraw();
+    });
+
+    socket.on("setColor", color => {
+      ctx.strokeStyle = color;
+    });
+
+    socket.on("selectWidth", width => {
+      this.setState({
+        lineWidth: width
+      });
+      this.canvas.getContext("2d").lineWidth = width;
+    });
+
+    socket.on("setEraser", () => {
+      this.canvas.getContext("2d").strokeStyle = "#fff";
+    });
+
+    socket.on("canvasClear", () => {
+      ctx.fillStyle = "#fff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.beginPath();
+    });
+
+    socket.on("chat", chatObject => {
+      console.log(chatObject);
+      this.setState({
+        chats: [...this.state.chats, chatObject]
+      });
+      console.log(this.state.chats);
+    });
+  }
 
   //Drawing
 
@@ -110,75 +189,9 @@ class Drawing extends Component {
     socket.emit("chat", chatObject);
   };
 
-  componentDidMount() {
-    const { socket } = this.props;
-    const canvas = this.canvas;
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#fff";
-    ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-    socket.emit("getRoomInfo", this.props.store.getState().room_id);
-
-    socket.on("getRoomInfo", (room_info, clients) => {
-      this.setState({
-        clients: clients
-      });
-    });
-
-    this.setState({
-      ctx: ctx
-    });
-
-    socket.emit("getId");
-
-    socket.on("getId", id => {
-      this.setState({
-        my_id: id
-      });
-    });
-
-    socket.on("initDraw", location => {
-      ctx.beginPath();
-      this.initDraw(location);
-    });
-
-    socket.on("Draw", location => {
-      this.draw(location);
-    });
-
-    socket.on("finishDraw", () => {
-      this.finishDraw();
-    });
-
-    socket.on("setColor", color => {
-      ctx.strokeStyle = color;
-    });
-
-    socket.on("selectWidth", width => {
-      this.setState({
-        lineWidth: width
-      });
-      this.canvas.getContext("2d").lineWidth = width;
-    });
-
-    socket.on("setEraser", () => {
-      this.canvas.getContext("2d").strokeStyle = "#fff";
-    });
-
-    socket.on("canvasClear", () => {
-      ctx.fillStyle = "#fff";
-      ctx.fillRect(0, 0, canvas.width, canvas.height);
-      ctx.beginPath();
-    });
-
-    socket.on("chat", chatObject => {
-      console.log(chatObject);
-      this.setState({
-        chats: [...this.state.chats, chatObject]
-      });
-      console.log(this.state.chats);
-    });
-  }
+  // componentWillUnmount() {
+  //   console.log("component unmount");
+  // }
 
   render() {
     const chats = this.state.chats.map((chat, i) => {
@@ -188,6 +201,11 @@ class Drawing extends Component {
         </li>
       );
     });
+    // const clients = this.state.clients.map((client, i) => {
+    //   console.log(client);
+    //   return <li key={i}>{client.name}</li>;
+    // });
+    console.log(this.state.members);
     return (
       <div className="Drawing">
         <canvas
@@ -206,11 +224,7 @@ class Drawing extends Component {
         <div className="chats">
           <div className="chatContent">{chats}</div>
           <div className="chatInput">
-            <input
-              className="chatForm"
-              onChange={this.onChangeChat}
-              value={this.state.chatContent}
-            />
+            <input className="chatForm" onChange={this.onChangeChat} />
             <button className="chatSubmitBtn" onClick={this.submitChatEvent}>
               전송
             </button>
@@ -251,6 +265,7 @@ class Drawing extends Component {
             />
           </div>
         </div>
+        {/* <div>{clients}</div> */}
       </div>
     );
   }
