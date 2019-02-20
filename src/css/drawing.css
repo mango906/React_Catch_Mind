@@ -1,3 +1,30 @@
+.question {
+  background-color: #ff9800;
+  height: 170px;
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.answer {
+  width: 90%;
+  height: 50px;
+  background-color: #ff5607;
+  margin-top: 20px;
+}
+
+.center {
+  position: relative;
+  transform: translateX(-50%);
+  left: 50%;
+}
+
+.count {
+  width: 90%;
+  height: 50px;
+  background-color: #ffc100;
+  margin-top: 20px;
+}
+
 .chats {
   background-color: #ff9800;
   height: 530px;
@@ -42,6 +69,7 @@
   cursor: pointer;
   position: relative;
   top: 50%;
+  margin-left: 50px;
   transform: translateY(-50%);
 }
 
@@ -51,6 +79,8 @@
   border-radius: 10px;
   margin-top: 20px;
   padding: 10px;
+  right: 0;
+  position: absolute;
 }
 
 .red {
@@ -134,4 +164,25 @@
   margin-left: 10px;
   width: 60px;
   height: 60px;
+}
+
+.members {
+  width: 60%;
+  height: 100%;
+}
+
+.member {
+  width: 25%;
+}
+
+.member > img {
+  width: 200px;
+  display: inline-block;
+}
+
+.member > div {
+  vertical-align: top;
+  display: inline-block;
+  font-size: 1.25rem;
+  margin: 20px;
 }

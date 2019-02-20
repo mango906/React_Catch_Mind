@@ -11,7 +11,8 @@ class Drawing extends Component {
       lineWidth: 0,
       chatContent: null,
       chats: [],
-      members: []
+      members: [],
+      word: null
     };
   }
 
@@ -44,6 +45,15 @@ class Drawing extends Component {
       console.log("getRoomInfo");
       this.setState({
         members: clients
+      });
+    });
+
+    socket.emit("gameInfo", this.props.store.getState().room_id);
+
+    socket.on("gameInfo", word => {
+      console.log(word);
+      this.setState({
+        word: word
       });
     });
 
@@ -201,10 +211,14 @@ class Drawing extends Component {
         </li>
       );
     });
-    // const clients = this.state.clients.map((client, i) => {
-    //   console.log(client);
-    //   return <li key={i}>{client.name}</li>;
-    // });
+    const clients = this.state.members.map((member, i) => {
+      return (
+        <li className="member" key={i}>
+          <img src={require("./../../image/character.png")} />
+          <div>{member.name}</div>
+        </li>
+      );
+    });
     console.log(this.state.members);
     return (
       <div className="Drawing">
@@ -221,6 +235,10 @@ class Drawing extends Component {
             this.canvas = ref;
           }}
         />
+        <div className="question">
+          <div className="answer center">{this.state.word}</div>
+          <div className="count center" />
+        </div>
         <div className="chats">
           <div className="chatContent">{chats}</div>
           <div className="chatInput">
@@ -265,7 +283,7 @@ class Drawing extends Component {
             />
           </div>
         </div>
-        {/* <div>{clients}</div> */}
+        <div className="members">{clients}</div>
       </div>
     );
   }

@@ -63,6 +63,8 @@ class waiting extends Component {
     socket.emit("getRoomInfo", room_id);
 
     socket.on("getRoomInfo", clients => {
+      console.log(clients);
+
       this.setState({
         members: []
       });
