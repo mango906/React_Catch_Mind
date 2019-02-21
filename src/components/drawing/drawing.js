@@ -91,12 +91,15 @@ class Drawing extends Component {
       ctx.beginPath();
     });
 
-    socket.on("chat", chatObject => {
+    socket.on("drawing_chat", chatObject => {
       console.log(chatObject);
       this.setState({
         chats: [...this.state.chats, chatObject]
       });
-      console.log(this.state.chats);
+    });
+
+    socket.on("correctAnswer", sentence => {
+      alert(sentence);
     });
   }
 
