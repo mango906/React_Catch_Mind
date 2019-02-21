@@ -193,10 +193,11 @@ class Drawing extends Component {
     const { socket } = this.props;
     let chatObject = {
       id: this.state.my_id,
-      value: this.state.chatContent
+      value: this.state.chatContent,
+      room_id: this.props.store.getState().room_id
     };
     this.state.chatContent = "";
-    socket.emit("chat", chatObject);
+    socket.emit("drawing_chat", chatObject);
   };
 
   // componentWillUnmount() {
