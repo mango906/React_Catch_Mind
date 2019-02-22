@@ -12,7 +12,8 @@ class Drawing extends Component {
       chatContent: null,
       chats: [],
       members: [],
-      word: null
+      word: null,
+      count: null
     };
   }
 
@@ -50,10 +51,11 @@ class Drawing extends Component {
 
     socket.emit("gameInfo", this.props.store.getState().room_id);
 
-    socket.on("gameInfo", word => {
+    socket.on("gameInfo", (word, count) => {
       console.log(word);
       this.setState({
-        word: word
+        word: word,
+        count: count
       });
     });
 
@@ -100,6 +102,7 @@ class Drawing extends Component {
 
     socket.on("correctAnswer", sentence => {
       alert(sentence);
+      this.resetCanvas();
     });
   }
 
@@ -184,6 +187,22 @@ class Drawing extends Component {
     socket.emit("canvasClear");
   };
 
+  //reset Canvas
+
+  resetCanvas = () => {
+    const ctx = this.canvas.getContext("2d");
+    //line width reset
+    ctx.lineWidth = "1";
+    //canvas reset
+    ctx.fillStyle = "#fff";
+    ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+    ctx.beginPath();
+    //line color reset
+    ctx.strokeStyle = "#000";
+    //slider reset
+    this.slider.value = "1";
+  };
+
   //Chatting
 
   onChangeChat = e => {
@@ -241,7 +260,7 @@ class Drawing extends Component {
         />
         <div className="question">
           <div className="answer center">{this.state.word}</div>
-          <div className="count center" />
+          <div className="count center">{this.state.count} / 10</div>
         </div>
         <div className="chats">
           <div className="chatContent">{chats}</div>
@@ -270,6 +289,9 @@ class Drawing extends Component {
             <input
               type="range"
               className="slider"
+              ref={ref => {
+                this.slider = ref;
+              }}
               min="1"
               max="20"
               value={this.state.lineWidth}

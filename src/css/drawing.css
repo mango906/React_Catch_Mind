@@ -10,6 +10,10 @@
   height: 50px;
   background-color: #ff5607;
   margin-top: 20px;
+  color: #fff;
+  text-align: center;
+  font-size: 1.25rem;
+  line-height: 50px;
 }
 
 .center {
@@ -23,6 +27,9 @@
   height: 50px;
   background-color: #ffc100;
   margin-top: 20px;
+  line-height: 50px;
+  font-size: 1.5rem;
+  text-align: center;
 }
 
 .chats {
