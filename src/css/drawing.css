@@ -16,6 +16,15 @@
   line-height: 50px;
 }
 
+.timer {
+  width: 90%;
+  height: 50px;
+  background-color: #ff5607;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-left: 20px;
+}
+
 .center {
   position: relative;
   transform: translateX(-50%);
