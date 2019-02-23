@@ -218,7 +218,9 @@ class Drawing extends Component {
       value: this.state.chatContent,
       room_id: this.props.store.getState().room_id
     };
-    this.state.chatContent = "";
+    this.setState({
+      chatContent: ""
+    });
     socket.emit("drawing_chat", chatObject);
   };
 
@@ -265,7 +267,11 @@ class Drawing extends Component {
         <div className="chats">
           <div className="chatContent">{chats}</div>
           <div className="chatInput">
-            <input className="chatForm" onChange={this.onChangeChat} />
+            <input
+              className="chatForm"
+              value={this.state.chatContent}
+              onChange={this.onChangeChat}
+            />
             <button className="chatSubmitBtn" onClick={this.submitChatEvent}>
               전송
             </button>
