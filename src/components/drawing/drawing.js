@@ -14,7 +14,8 @@ class Drawing extends Component {
       members: [],
       word: null,
       count: null,
-      time: 90
+      time: 90,
+      drawer: false
     };
   }
 
@@ -28,6 +29,16 @@ class Drawing extends Component {
     const ctx = canvas.getContext("2d");
     ctx.fillStyle = "#fff";
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // if (this.state.word == "?") {
+    //   this.setState({
+    //     drawer: false
+    //   });
+    // } else {
+    //   this.setState({
+    //     drawer: true
+    //   });
+    // }
 
     // this.setState({
     //   ctx: ctx
@@ -52,11 +63,12 @@ class Drawing extends Component {
 
     socket.emit("gameInfo", this.props.store.getState().room_id);
 
-    socket.on("gameInfo", (word, count) => {
+    socket.on("gameInfo", (word, count, drawer) => {
       console.log(word);
       this.setState({
         word: word,
-        count: count
+        count: count,
+        drawer: drawer
       });
     });
 
@@ -260,10 +272,10 @@ class Drawing extends Component {
           className="canvas"
           width={1536}
           height={730}
-          onMouseDown={this.initDrawEvent.bind(this)}
-          onMouseMove={this.drawEvent.bind(this)}
-          onMouseUp={this.finishDrawEvent.bind(this)}
-          onMouseOut={this.finishDrawEvent.bind(this)}
+          onMouseDown={this.state.drawer && this.initDrawEvent.bind(this)}
+          onMouseMove={this.state.drawer && this.drawEvent.bind(this)}
+          onMouseUp={this.state.drawer && this.finishDrawEvent.bind(this)}
+          onMouseOut={this.state.drawer && this.finishDrawEvent.bind(this)}
           ref={ref => {
             this.canvas = ref;
           }}
@@ -288,17 +300,11 @@ class Drawing extends Component {
         </div>
         <div className="tools">
           <div>
-            <button className="red" onClick={this.colorChangeEvent.bind(this)} />
-            <button
-              className="yellow"
-              onClick={this.colorChangeEvent}
-              ref={ref => {
-                this.btn = ref;
-              }}
-            />
-            <button className="green" onClick={this.colorChangeEvent} />
-            <button className="blue" onClick={this.colorChangeEvent} />
-            <button className="black" onClick={this.colorChangeEvent} />
+            <button className="red" onClick={this.state.drawer && this.colorChangeEvent} />
+            <button className="yellow" onClick={this.state.drawer && this.colorChangeEvent} />
+            <button className="green" onClick={this.state.drawer && this.colorChangeEvent} />
+            <button className="blue" onClick={this.state.drawer && this.colorChangeEvent} />
+            <button className="black" onClick={this.state.drawer && this.colorChangeEvent} />
           </div>
           <div style={{ marginTop: "15px" }}>
             <input
@@ -310,17 +316,17 @@ class Drawing extends Component {
               min="1"
               max="20"
               value={this.state.lineWidth}
-              onChange={this.handleChange}
+              onChange={this.state.drawer && this.handleChange}
             />
             <img
               className="eraserBtn"
-              onClick={this.setEraserEvent}
+              onClick={this.state.drawer && this.setEraserEvent}
               src={require("./../../image/eraser.png")}
             />
             <img
               className="clearBtn"
               src={require("./../../image/trash.png")}
-              onClick={this.clearEvent}
+              onClick={this.state.drawer && this.clearEvent}
             />
           </div>
         </div>
