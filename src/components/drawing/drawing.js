@@ -293,7 +293,7 @@ class Drawing extends Component {
               value={this.state.chatContent}
               onChange={this.onChangeChat}
             />
-            <button className="chatSubmitBtn" onClick={this.submitChatEvent}>
+            <button className="chatSubmitBtn" onClick={!this.state.drawer && this.submitChatEvent}>
               전송
             </button>
           </div>
