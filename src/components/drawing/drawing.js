@@ -264,7 +264,7 @@ class Drawing extends Component {
       return (
         <li className="member" key={i}>
           <img src={require("./../../image/character.png")} />
-          <div>{member.name}</div>
+          <div>{member}</div>
         </li>
       );
     });

@@ -66,13 +66,7 @@ class waiting extends Component {
       console.log(clients);
 
       this.setState({
-        members: []
-      });
-
-      clients.forEach(client => {
-        this.setState({
-          members: [...this.state.members, client.name]
-        });
+        members: clients
       });
 
       // clients.forEach(client => {
