@@ -189,6 +189,7 @@
 
 .member {
   width: 25%;
+  display: inline-block;
 }
 
 .member > img {
@@ -199,6 +200,6 @@
 .member > div {
   vertical-align: top;
   display: inline-block;
-  font-size: 1.25rem;
+  font-size: 1rem;
   margin: 20px;
 }

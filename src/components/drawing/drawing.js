@@ -14,7 +14,7 @@ class Drawing extends Component {
       members: [],
       word: null,
       count: null,
-      time: 90,
+      // time: 90,
       drawer: false
     };
   }
@@ -118,12 +118,16 @@ class Drawing extends Component {
       this.resetCanvas();
     });
 
-    socket.on("time", time => {
-      console.log(time);
-      this.setState({
-        time: time
-      });
-    });
+    // socket.on("time", time => {
+    //   console.log(time);
+    //   this.setState({
+    //     time: time
+    //   });
+    // });
+
+    // socket.on("time_over", sentence => {
+    //   alert(sentence);
+    // });
   }
 
   //Drawing
@@ -283,7 +287,7 @@ class Drawing extends Component {
         <div className="question">
           <div className="answer center">{this.state.word}</div>
           <div className="count center">{this.state.count} / 10</div>
-          <div className="timer" style={{ width: this.state.time + "%" }} />
+          {/* <div className="timer" style={{ width: this.state.time + "%" }} /> */}
         </div>
         <div className="chats">
           <div className="chatContent">{chats}</div>
