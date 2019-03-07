@@ -10,7 +10,6 @@ const socket = io(window.location.origin.replace(window.location.port, "") + "40
 
 class App extends Component {
   render() {
-    console.log(window.location.origin.replace(window.location.port, "") + "4000");
     return (
       <div className="App">
         <Router>
