@@ -1,3 +1,7 @@
+## 서버 코드
+
+https://github.com/mango906/Catch_Mind_SERVER
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
